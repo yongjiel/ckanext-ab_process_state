@@ -2,17 +2,17 @@
 ckanext-ab_process_state
 =============
 
-   This extension does more business process states than the ckan core's states and
-   private choices. Process states match to state and private choices in N to 1 cardinality.
-   It allows more situations to fit the usage in deep. The match is like below:
+This extension does more business process states than the ckan core's states and
+private choices. Process states match to state and private choices in N to 1 cardinality.
+It allows more situations to fit the usage in deep. The match is like below:
 
-   Process_state     state     private
-   Draft             draft     true
-   Modified          active    true
-   Submitted         active    true
-   Pending           active    true
-   Rejected          active    true
-   Approved          active    false
+    Process_state     state     private
+    Draft             draft     true
+    Modified          active    true
+    Submitted         active    true
+    Pending           active    true
+    Rejected          active    true
+    Approved          active    false
 
 
 ------------
@@ -23,8 +23,8 @@ Requirements
 
 2. It needs two extension to support:
     
-   ckanext-scheming
-   ckanext-repeating
+       ckanext-scheming
+       ckanext-repeating
 
 
 
@@ -79,68 +79,68 @@ Usage
 
 1. Put this block into your json schema file (field names are fixed).
 
-      {
-      "field_name": "process_state",
-      "label": "Change to Process State",
-      "form_snippet": "process_state.html",
-      "help_text": "The state of work flow is going to be changed to",
-      "help_inline": false,
-      "required": true,
-      "validators": "scheming_required ab_ps_resource_required",
-      "preset": "select",
-      "choices": [
-        {"value": "Draft", "label": "Draft"},
-        {"value": "Modified", "label": "Modified"},
-        {"value": "Submitted", "label": "Submitted"},
-        {"value": "Pending", "label": "Pending"},
-        {"value": "Rejected", "label": "Rejected"},
-        {"value": "Approved", "label": "Approved"}
-      ],
-      "form_decision_restrict_choices_to": [
-        "Pending", "Rejected", "Approved"
-      ],
-      "form_not_allow_incomplete_dataset": [
-        "Submitted", "Pending", "Rejected", "Approved"
-      ]
-      },
-      {
-        "field_name": "last_process_state",
-        "label": "Last Process State",
-        "help_text": "The last state of work flow",
-        "help_inline": false,
-        "form_attrs": {"disabled": "disabled",
-                       "style": "background-color:#ddd"}
-      },
-      {
-        "field_name": "reason",
-        "label": "Rejected Reason",
-        "form_snippet": "markdown.html",
-        "form_placeholder": "A concise narrative of the content of an information resource that includes its purpose and function.",
-        "help_text": "Reason of rejected state of work flow",
+        {
+        "field_name": "process_state",
+        "label": "Change to Process State",
+        "form_snippet": "process_state.html",
+        "help_text": "The state of work flow is going to be changed to",
         "help_inline": false,
         "required": true,
-        "validators": "scheming_required" 
-      },
+        "validators": "scheming_required ab_ps_resource_required",
+        "preset": "select",
+        "choices": [
+          {"value": "Draft", "label": "Draft"},
+          {"value": "Modified", "label": "Modified"},
+          {"value": "Submitted", "label": "Submitted"},
+          {"value": "Pending", "label": "Pending"},
+          {"value": "Rejected", "label": "Rejected"},
+          {"value": "Approved", "label": "Approved"}
+        ],
+        "form_decision_restrict_choices_to": [
+          "Pending", "Rejected", "Approved"
+        ],
+        "form_not_allow_incomplete_dataset": [
+          "Submitted", "Pending", "Rejected", "Approved"
+        ]
+        },
+        {
+          "field_name": "last_process_state",
+          "label": "Last Process State",
+          "help_text": "The last state of work flow",
+          "help_inline": false,
+          "form_attrs": {"disabled": "disabled",
+                         "style": "background-color:#ddd"}
+        },
+        {
+          "field_name": "reason",
+          "label": "Rejected Reason",
+          "form_snippet": "markdown.html",
+          "form_placeholder": "A concise narrative of the content of an information resource that includes its purpose and function.",
+          "help_text": "Reason of rejected state of work flow",
+          "help_inline": false,
+          "required": true,
+          "validators": "scheming_required" 
+        },
 
 2. (Optional) Put this block into your schema file to track the contributor and creator.
    
-      {
-      "field_name": "creator_user_name",
-      "label": "User of record creation",
-      "form_snippet": "dataset_creator.html",
-      "help_text": "User name of creating this record.",
-      "help_inline": false,
-      "form_attrs": {"disabled": "disabled",
-                     "style": "background-color:#ddd"}
-      },
-      {
-      "field_name": "maintainers",
-      "preset": "repeating_text",
-      "label": "Maintainer",
-      "form_blanks": 0,
-      "form_attrs": {"readonly": "readonly",
+        {
+        "field_name": "creator_user_name",
+        "label": "User of record creation",
+        "form_snippet": "dataset_creator.html",
+        "help_text": "User name of creating this record.",
+        "help_inline": false,
+        "form_attrs": {"disabled": "disabled",
                        "style": "background-color:#ddd"}
-      },
+        },
+        {
+        "field_name": "maintainers",
+        "preset": "repeating_text",
+        "label": "Maintainer",
+        "form_blanks": 0,
+        "form_attrs": {"readonly": "readonly",
+                         "style": "background-color:#ddd"}
+        },
 
 
 --------
