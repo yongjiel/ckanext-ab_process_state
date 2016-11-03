@@ -1,0 +1,4 @@
+include README.rst
+include LICENSE
+include requirements.txt
+recursive-include ckanext/ab_process_state *.html *.json *.js *.less *.css *.mo
