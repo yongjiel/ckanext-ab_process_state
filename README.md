@@ -23,8 +23,8 @@ Requirements
 
 2. It needs two extension to support:
     
-    ckanext-scheming
-    ckanext-repeating
+        ckanext-scheming
+        ckanext-repeating
 
 
 
@@ -70,7 +70,7 @@ Document any optional config settings here. For example::
 
 3. Put this line into your ini config file.
 
-   scheming.dataset_schemas =  ckanext.<your_extension>:<your_scheming_json_file>
+   scheming.dataset_schemas =  ckanext.your_extension:your_scheming_json_file
 
 
 ------
@@ -120,7 +120,7 @@ Usage
           "help_inline": false,
           "required": true,
           "validators": "scheming_required" 
-        },
+        }
 
 2. (Optional) Put this block into your schema file to track the contributor and creator.
    
@@ -140,12 +140,12 @@ Usage
         "form_blanks": 0,
         "form_attrs": {"readonly": "readonly",
                          "style": "background-color:#ddd"}
-        },
+        }
 
 3. Put these two lines into your schema.xml:
     
-    <field name="process_state" type="string" indexed="true" stored="true" omitNorms="true" />
-    <copyField source="process_state" dest="text"/>
+        <field name="process_state" type="string" indexed="true" stored="true" omitNorms="true" />
+        <copyField source="process_state" dest="text"/>
 
 4. Rebuild index and restart solr.
 
