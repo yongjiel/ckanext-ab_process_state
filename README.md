@@ -23,8 +23,8 @@ Requirements
 
 2. It needs two extension to support:
     
-       ckanext-scheming
-       ckanext-repeating
+    ckanext-scheming
+    ckanext-repeating
 
 
 
@@ -141,6 +141,13 @@ Usage
         "form_attrs": {"readonly": "readonly",
                          "style": "background-color:#ddd"}
         },
+
+3. Put these two lines into your schema.xml:
+    
+    <field name="process_state" type="string" indexed="true" stored="true" omitNorms="true" />
+    <copyField source="process_state" dest="text"/>
+
+4. Rebuild index and restart solr.
 
 
 --------
