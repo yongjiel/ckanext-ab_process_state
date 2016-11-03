@@ -79,7 +79,7 @@ Usage
 
 1. Put this block into your json schema file (field names are fixed).
 
-     {
+      {
       "field_name": "process_state",
       "label": "Change to Process State",
       "form_snippet": "process_state.html",
