@@ -52,6 +52,7 @@
 {%- endmacro %}
 
 {% block package_list %}
+{% resource 'ab_process_state/css/main.css' %}
   <div class="form">
 	  <form action="{{ url(org=org, url=h.full_current_url()) }}" method="post" id="form_action_filter">
 	  	  {% block organization %}
@@ -60,11 +61,12 @@
 	  	  {% if 'dashboard' in h.full_current_url() or 'organization' in h.full_current_url() %}
 	  	  {# if we want filtering and action on opendata and publications also, we can comment the above if command #}
 		  	  {% block filters %}
+		  	   
 	          {% resource 'ab_process_state/js/filters_multiple_datasets.js' %}
 	            <div class="control-group">
 	            	<table>
 	            	<tr>
-	            	<td class="process_state_td">
+	            	<td>
 	                <input type="checkbox" 
 	                       id="ext_field-filters" 
 	                       name="ext_field-filters"
@@ -149,6 +151,10 @@
 		    {% endfor %}
 		    {% endblock %}
 		</div>
+		{% else %}
+		  <p class="empty">
+	      {{ _('No result available!') }}
+	      </p>
 		{% endif %}
 
 		<div class="button">

@@ -145,7 +145,6 @@ class PackagesReactivateController(PackageController):
         return h.redirect_to(url)
 
     def _validation_error_message(self, err_dict, pkg_name):
-        print(err_dict)
         message = "Dataset '{0}'  <br/><br/>ValidationErrors:  <br/>".format(pkg_name)
         for field, error in err_dict.iteritems():
             if field == 'resources':
