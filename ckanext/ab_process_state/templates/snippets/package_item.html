@@ -32,21 +32,23 @@ Example:
 {% block package_item %}
 {% if c.process_state and c.process_state == package.process_state or not c.process_state  %}
 <div class="row {{ item_class or "dataset-item" }}">
-    {%- if c.action_multi == 'Deactivate' and package.process_state == "Approved" and allow_full_work_flow
-            or 
-          c.action_multi == 'Reactivate'  and package.process_state != "Approved" and allow_full_work_flow 
-            or
-          c.action_multi == 'Delete'  -%}
-    <div class="checkbox">
-      <label for="{{ package.id }}" 
-             name="pkg-item-action-label" 
-             class="lable-danger-item-actions">
-          <input type="checkbox" 
-                 id="{{ package.id }}" 
-                 name="{{ package.id }}"  />{{ _(mark_notice) }}
-      </label> 
-    </div>
-    {%- endif -%} 
+    {% block mark_action %}
+      {%- if c.action_multi == 'Deactivate' and package.process_state == "Approved" and allow_full_work_flow
+              or 
+            c.action_multi == 'Reactivate'  and package.process_state != "Approved" and allow_full_work_flow 
+              or
+            c.action_multi == 'Delete'  -%}
+      <div class="checkbox">
+        <label for="{{ package.id }}" 
+               name="pkg-item-action-label" 
+               class="lable-danger-item-actions">
+            <input type="checkbox" 
+                   id="{{ package.id }}" 
+                   name="{{ package.id }}"  />{{ _(mark_notice) }}
+        </label> 
+      </div>
+      {%- endif -%}
+    {% endblock %} 
     <div class="col-sm-12 col-md-8 nopadding">
     {% block content %}
     <div class="dataset-content">

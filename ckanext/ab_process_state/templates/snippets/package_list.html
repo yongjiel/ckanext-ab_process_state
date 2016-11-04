@@ -62,6 +62,9 @@
 		  	  {% block filters %}
 	          {% resource 'ab_process_state/js/filters_multiple_datasets.js' %}
 	            <div class="control-group">
+	            	<table>
+	            	<tr>
+	            	<td class="process_state_td">
 	                <input type="checkbox" 
 	                       id="ext_field-filters" 
 	                       name="ext_field-filters"
@@ -71,7 +74,11 @@
 	                       data-module="filters"
 	                       {{ all_dataset_url(org=org, url=h.full_current_url()) }}
 	                       />
+	                </td>
+	                <td>
 	                  <label class="control-label" for="ext_ext_field-filters-select" form="form_filter">{{ _('Filters') }}&nbsp;&nbsp;&nbsp;</label>
+	                </td> 
+	                <td> 
 	                  <select id="ext_field-filters-select" 
 	                          name="ext_field-filters-select"
 	                          data-module="filters_select"
@@ -80,11 +87,17 @@
 		                        <option value="{{ ps }}" {%- if c.process_state == ps -%} {{ "selected" }} {%- endif -%} > {{ _(ps) }}</option>
 		                      {% endfor %}
 	                  </select>
+	                </td>
+	                </tr>
+	                </table>
 	            </div>
 	         {% endblock %}
 		  	  {% block actions %}
 	          {% resource 'ab_process_state/js/actions_multiple_datasets.js' %}
 	            <div class="control-group">
+	            	<table>
+	            	<tr>
+	            	<td class="process_state_td">
 	                <input type="checkbox" 
 	                       id="ext_field-actions" 
 	                       name="ext_field-actions"
@@ -92,7 +105,11 @@
 	                       data-module="actions"
 	                       {{ all_dataset_url(org=org, url=h.full_current_url()) }}
 	                   />
+	                </td>
+	                <td>
 	                   <label class="control-label" for="ext_field-actions-select">{{ _('Actions') }}</label>
+	                </td>
+	                <td>
 	                  <select id="ext_field-actions-select" 
 	                          name="ext_field-actions-select" 
 	                          data-module="actions_select"
@@ -103,6 +120,9 @@
 		                      {% endif %}
 	                          <option value="Delete"  {%- if c.action_multi == "Delete" -%} {{ "selected" }} {%- endif -%}>{{ _("Delete") }}</option>
 	                  </select>
+	                </td>
+	                </tr>
+	                </table>
 	            </div>
 	          {% endblock %}
          {% endif %}

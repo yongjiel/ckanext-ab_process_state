@@ -25,3 +25,8 @@
 .lable-danger-item-actions { 
   color: #d9534f; 
 }
+
+.process_state_td {
+	display: inline-block;
+    vertical-align: middle;
+}

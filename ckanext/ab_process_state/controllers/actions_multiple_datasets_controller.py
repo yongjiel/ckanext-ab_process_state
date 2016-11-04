@@ -141,11 +141,19 @@ class PackagesReactivateController(PackageController):
         except NotFound:
             abort(404, _('Dataset not found'))
         except ValidationError as e:
-            h.flash_error( _(self.__validation_error_message(e.error_dict, pkg_dict['name'])), allow_html=True )
+            h.flash_error( _(self._validation_error_message(e.error_dict, pkg_dict['name'])), allow_html=True )
         return h.redirect_to(url)
 
-    def __validation_error_message(self, err_dict, pkg_name):
+    def _validation_error_message(self, err_dict, pkg_name):
+        print(err_dict)
         message = "Dataset '{0}'  <br/><br/>ValidationErrors:  <br/>".format(pkg_name)
-        for field, error in err_dict.items():
+        for field, error in err_dict.iteritems():
+            if field == 'resources':
+                #[{u'classification': [u'Missing value']}, {u'classification': [u'Missing value']}]
+                for idx, d in enumerate(error):
+                    res_err = ''
+                    for k, v in d.items():
+                        res_err += "{0}: {1} ".format(k, ','.join(v))   
+                    error[idx] = res_err
             message += "{0}:  {1}<br/>".format(field, ','.join(error))
         return message
