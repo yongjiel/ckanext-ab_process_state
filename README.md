@@ -142,8 +142,8 @@ Usage
                          "style": "background-color:#ddd"}
         }
 
-3. If use "required": true and "validators": "scheming_required" in your schema json file, add
-"ab_ps_resource_required" into "validators"
+3. If use "required": true and "validators": "scheming_required" in your schema json file, change 
+"scheming_required" into "ab_ps_scheming_required".
 
 
 4. Put these two lines into your schema.xml:

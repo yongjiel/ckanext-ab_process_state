@@ -64,7 +64,7 @@
       "form_snippet": "markdown.html",
       "form_placeholder": "eg. Some useful notes about the data",
       "required": true,
-      "validators": "scheming_required ab_ps_resource_required"
+      "validators": "ab_ps_scheming_required"
     },
     {
       "field_name": "creator_user_name",
