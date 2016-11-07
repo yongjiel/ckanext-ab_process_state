@@ -30,7 +30,8 @@ def is_admin(user, org):
 
 
 def current_user_name():
-	return toolkit.c.userobj.name
+    if toolkit.c.userobj:
+	    return toolkit.c.userobj.name
 
 
 def is_authorized_member(user, org, process_state):
@@ -64,6 +65,8 @@ def allow_full_work_flow(user, org):
                 org : name or id,
         rtype: boolean
     """
+    if not user or not org:
+        return None
     return is_admin(user, org) or is_authorized_member(user, org, '')
 
 

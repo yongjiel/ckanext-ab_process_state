@@ -143,7 +143,8 @@ Usage
         }
 
 3. If use "required": true and "validators": "scheming_required" in your schema json file, change 
-"scheming_required" into "ab_ps_scheming_required".
+"scheming_required" into "ab_ps_scheming_required". It will validate fields only on "Submitted", 
+"Pending", "Rejected" and "Approved" states.
 
 
 4. Put these two lines into your schema.xml:
