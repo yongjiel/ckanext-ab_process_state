@@ -142,12 +142,16 @@ Usage
                          "style": "background-color:#ddd"}
         }
 
-3. Put these two lines into your schema.xml:
+3. If use "required": true and "validators": "scheming_required" in your schema json file, add
+"ab_ps_resource_required" into "validators"
+
+
+4. Put these two lines into your schema.xml:
     
         <field name="process_state" type="string" indexed="true" stored="true" omitNorms="true" />
         <copyField source="process_state" dest="text"/>
 
-4. Rebuild index and restart solr.
+5. Rebuild index and restart solr.
 
 
 --------

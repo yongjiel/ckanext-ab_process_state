@@ -62,7 +62,9 @@
       "field_name": "notes",
       "label": "Description",
       "form_snippet": "markdown.html",
-      "form_placeholder": "eg. Some useful notes about the data"
+      "form_placeholder": "eg. Some useful notes about the data",
+      "required": true,
+      "validators": "scheming_required ab_ps_resource_required"
     },
     {
       "field_name": "creator_user_name",
