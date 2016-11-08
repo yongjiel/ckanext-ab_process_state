@@ -24,7 +24,6 @@ Requirements
 2. It needs two extension to support:
     
         ckanext-scheming
-        ckanext-repeating
 
 
 
@@ -65,12 +64,12 @@ Document any optional config settings here. For example::
 
 2. Put these lines into your ini config file.
    
-   scheming.presets = ckanext.scheming:presets.json
-                   ckanext.repeating:presets.json
+    scheming.presets = ckanext.scheming:presets.json
+  
 
 3. Put this line into your ini config file.
 
-   scheming.dataset_schemas =  ckanext.your_extension:your_scheming_json_file
+    scheming.dataset_schemas =  ckanext.your_extension:your_scheming_json_file
 
 
 ------
@@ -122,37 +121,29 @@ Usage
           "validators": "scheming_required" 
         }
 
-2. (Optional) Put this block into your schema file to track the contributor and creator.
-   
-        {
-        "field_name": "creator_user_name",
-        "label": "User of record creation",
-        "form_snippet": "dataset_creator.html",
-        "help_text": "User name of creating this record.",
-        "help_inline": false,
-        "form_attrs": {"disabled": "disabled",
-                       "style": "background-color:#ddd"}
-        },
-        {
-        "field_name": "maintainers",
-        "preset": "repeating_text",
-        "label": "Maintainer",
-        "form_blanks": 0,
-        "form_attrs": {"readonly": "readonly",
-                         "style": "background-color:#ddd"}
-        }
 
-3. If use "required": true and "validators": "scheming_required" in your schema json file, change 
+2. If use "required": true and "validators": "scheming_required" in your schema json file, change 
 "scheming_required" into "ab_ps_scheming_required". It will validate fields only on "Submitted", 
 "Pending", "Rejected" and "Approved" states.
 
 
-4. Put these two lines into your schema.xml:
+3. Put these two lines into your schema.xml:
     
         <field name="process_state" type="string" indexed="true" stored="true" omitNorms="true" />
         <copyField source="process_state" dest="text"/>
 
-5. Rebuild index and restart solr.
+
+4. Rebuild index and restart solr.
+
+
+5. Go to organization management, you can find a tag name "Work flow". You can authorize editor of 
+the same organization to work out the full work flow. If authorized, the editor can see the change
+in the list of process_state field when editing a dataset. 
+
+
+6. If want more flexible with no resource when switch to "Submitted", "Pending", "Rejected", "Approved",
+just remove the "ab_ps_resource_required" from field process_state's validator field.
+
 
 
 --------
