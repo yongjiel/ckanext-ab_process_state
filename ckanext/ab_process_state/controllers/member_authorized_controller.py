@@ -50,12 +50,19 @@ class MemberAuthorizedController(base.BaseController):
 
         toolkit.c.group_dict = group_object
 
-        if toolkit.request.method == 'POST' and username:
-            self._action('member_authorized_create', 
+        if toolkit.request.method == 'POST':
+            if username:
+                user_object = model.User.get(username)
+                if not user_object:
+                    helpers.flash_error("User \"{0}\" not exist!".format(username))
+                else:
+                    self._action('member_authorized_create', 
                          context, 
                          username, 
                          groupname, 
                          "User \"{0}\" is now an authorized Member".format(username))
+            else:
+                helpers.flash_error("Please input username first.")
 
             return toolkit.redirect_to(toolkit.url_for(controller=controller,
                                                        action='manage', id=id))
