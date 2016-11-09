@@ -31,12 +31,16 @@ class MemberAuthorizedController(base.BaseController):
             toolkit.abort(401,
                           toolkit._('Unauthorized to perform that action'))
         except toolkit.ObjectNotFound as e :
-            error_message = (e.message or e.error_summary
-                         or e.error_dict)
+            error_message = (e.error_dict or e.error_summary
+                         or e.message)
+            if error_message.get("message"):
+                error_message = error_message.get("message")
             helpers.flash_error(error_message)
         except toolkit.ValidationError as e:
-            error_message = (e.message or e.error_summary
-                         or e.error_dict)
+            error_message = (e.error_dict or e.error_summary
+                         or e.message)
+            if error_message.get("message"):
+                error_message = error_message.get("message")
             helpers.flash_error(error_message)
         else:
             helpers.flash_success(toolkit._(success_msg))

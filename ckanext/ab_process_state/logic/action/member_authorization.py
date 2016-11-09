@@ -83,14 +83,12 @@ def member_authorized_create(context, data_dict):
     ''' Only sysadmin and org admin can do member_create, they can do this action '''
     toolkit.check_access('member_create', context, data_dict)
     session = context['session']
-    
     member_dict, username, orgname = get_member_username_orgname(data_dict)
     
     if MemberAuthorizedWorkflow.exists(session, member_dict):
         error_msg = _("User \"{0}\" is already an authorized".format(username) +
                       " member of organization \"{0}\".".format( orgname))
         raise ValidationError(error_msg)
-    
     return MemberAuthorizedWorkflow.create(session, member_dict)
 
 
