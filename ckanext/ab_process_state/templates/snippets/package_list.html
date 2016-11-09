@@ -58,7 +58,8 @@
 	  	  {% block organization %}
              <input type='hidden' id="ext_field-hide-org" name="ext_field-hide-org" value="{{  org if org  }}" />
 	  	  {% endblock %}
-	  	  {% if 'dashboard' in h.full_current_url() or 'organization' in h.full_current_url() %}
+	  	  {% if ('/dashboard/' in h.full_current_url() or '/organization/' in h.full_current_url()) 
+	  	        and h.ab_ps_current_user_name()  %}
 	  	  {# if we want filtering and action on opendata and publications also, we can comment the above if command #}
 		  	  {% block filters %}
 		  	   
