@@ -100,6 +100,8 @@ def get_required_fields_name(dataset_type):
 
 def get_all_process_states(dataset_type):
     ps = _get_process_state_field(dataset_type)
+    if not ps:
+        return []
     return [ c['value'] for c in ps['choices'] ]
 
 
