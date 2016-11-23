@@ -16,7 +16,7 @@ ckan.module('process_state_field', function ($, _) {
   return {
     initialize: function () {
       $.proxyAll(this, /_on/);
-
+      
       var r = $("#field-reason");
       var lps = $("#field-last_process_state");
       if(lps.val() == "Rejected"){  // display the reason only
@@ -35,7 +35,11 @@ ckan.module('process_state_field', function ($, _) {
             r.val(""); // validator will not allow None
           }
       }
+      // disable the field private. Make it read only.
+      // process state field to control the work flow and state.
       var p = $("#field-private");
+      p.readonly();
+      p.css('background-color', '#ddd');
       if (this.el.val() != "Approved") {
           p.val("True");
       }else{
