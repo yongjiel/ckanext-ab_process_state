@@ -57,6 +57,8 @@ class ProcessStatePlugin(plugins.SingletonPlugin):
         curr_user_name = helpers.current_user_name()
         if package_last_process_state:
             pkg_dict['last_process_state'] = package_last_process_state.process_state
+
+        # set up contributors
         if pkg_dict.get('creator_user_id'):
             pkg_dict['creator_user_name'] = toolkit.get_action("user_show")(
                                               data_dict={"id": pkg_dict['creator_user_id']}
@@ -74,6 +76,17 @@ class ProcessStatePlugin(plugins.SingletonPlugin):
             if not curr_user_name in pkg_dict['maintainers'] and \
                   curr_user_name != pkg_dict['creator_user_name']:
                 pkg_dict['maintainers'].append(curr_user_name)  
+
+        #set up the process_state field for old dataset with no process_state
+        if not pkg_dict.get("process_state"):
+            if not pkg_dict.get('private'): # public
+                pkg_dict['process_state'] = 'Approved'
+                pkg_dict['last_process_state'] = 'Approved'
+            else:
+                pkg_dict['process_state'] = 'Modified'
+                pkg_dict['last_process_state'] = 'Modified'
+
+
 
                     
     def _update_extra(self, context, pkg_dict):
@@ -127,6 +140,12 @@ class ProcessStatePlugin(plugins.SingletonPlugin):
     def before_view(self, pkg_dict):
         if not pkg_dict.get('reason'):
             pkg_dict['reason'] = 'NA'
+        #handle old data with no process_state field
+        if not pkg_dict.get('process_state'):
+            if not pkg_dict.get('private'):
+                pkg_dict['process_state'] = 'Approved'
+            else:
+                pkg_dict['process_state'] = 'Modified' 
         return pkg_dict
 
     def before_search(self, search_params):

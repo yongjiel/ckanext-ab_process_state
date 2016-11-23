@@ -58,17 +58,12 @@ Example:
             {% endblock %}
 
             {% block heading_meta %}
-                {% if package.private %}
-                    <span class="dataset-private label"><i class="icon-lock"></i>{{ _('Private') }}</span>
-                {% endif %}
-                {% if package.get('state', '').startswith('deleted') %}
-                    <span class="label label-important">{{ _('Deleted') }}</span>
-                {% endif %}
                 {% if package.process_state %}
+                    {% resource 'ab_process_state/css/main.css' %}
                     <span class="label process_state_{{ package.process_state|lower }}" ><i class="{{ 'label label-info' if package.process_state == 'Approved' else 'icon-lock' }}" ></i>{{ _(package.process_state) }}</span>
                 {% endif %}
-                {{ h.popular('recent views', package.tracking_summary.recent, min=10) if package.tracking_summary }}
             {% endblock %}
+
           {% endblock %}
 
           {% block banner %}
