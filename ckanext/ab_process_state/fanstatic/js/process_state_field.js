@@ -35,11 +35,10 @@ ckan.module('process_state_field', function ($, _) {
             r.val(""); // validator will not allow None
           }
       }
-      // disable the field private. Make it read only.
+      // hide the field private.
       // process state field to control the work flow and state.
       var p = $("#field-private");
-      p.readonly();
-      p.css('background-color', '#ddd');
+      p.parent().parent().hide();
       if (this.el.val() != "Approved") {
           p.val("True");
       }else{
