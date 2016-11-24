@@ -82,10 +82,7 @@ class ProcessStatePlugin(plugins.SingletonPlugin):
             if not pkg_dict.get('private'): # public
                 pkg_dict['process_state'] = 'Approved'
                 pkg_dict['last_process_state'] = 'Approved'
-            else:
-                pkg_dict['process_state'] = 'Modified'
-                pkg_dict['last_process_state'] = 'Modified'
-
+        
 
 
                     
