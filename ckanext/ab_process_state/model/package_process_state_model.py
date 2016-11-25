@@ -124,7 +124,7 @@ def add_package_process_state(session, pkg_dict, modifior_id):
     model.created_date = datetime.datetime.now()
     model.creator_id = pkg_dict['creator_user_id']
     model.modifior_id = modifior_id
-
-    session.add(model)
     
-    session.commit()  
+    session.add(model)
+    session.commit()
+

@@ -82,6 +82,18 @@ class ProcessStatePlugin(plugins.SingletonPlugin):
             if not pkg_dict.get('private'): # public
                 pkg_dict['process_state'] = 'Approved'
                 pkg_dict['last_process_state'] = 'Approved'
+            """
+            Do not use this part. add_package_process_state function 
+            will call session.commit() and return diff pkg_dict with
+            no process_state field within new dataset, instead it contains 
+            that field in extras. the following part will change the 
+            value of new dataset values. 
+            """
+            """
+            else:
+                pkg_dict['process_state'] = 'Modified'
+                pkg_dict['last_process_state'] = 'Modified'
+            """
         
 
 
@@ -91,6 +103,7 @@ class ProcessStatePlugin(plugins.SingletonPlugin):
         pkg_dict = toolkit.get_action("package_show")(data_dict={"id": pkg_dict['id']})
         package_last_process_state = get_package_last_process_state(context['session'], 
         	                                                         pkg_dict['id'])
+
         if package_last_process_state:
             last_process_state = package_last_process_state.process_state
             last_reason = package_last_process_state.reason
@@ -100,9 +113,10 @@ class ProcessStatePlugin(plugins.SingletonPlugin):
         
         modifior_id = context['model'].User.get(context['user']).id
         ps = pkg_dict.get("process_state")
+
         if ps and ps != "Rejected":
             pkg_dict['reason'] = 'NA'
-
+        
         if ps and ps != last_process_state or \
                ps and ps == "Rejected" and pkg_dict['reason'] != last_reason:
             add_package_process_state(context['session'], pkg_dict, modifior_id=modifior_id)
@@ -138,11 +152,15 @@ class ProcessStatePlugin(plugins.SingletonPlugin):
         if not pkg_dict.get('reason'):
             pkg_dict['reason'] = 'NA'
         #handle old data with no process_state field
+        
         if not pkg_dict.get('process_state'):
             if not pkg_dict.get('private'):
                 pkg_dict['process_state'] = 'Approved'
             else:
                 pkg_dict['process_state'] = 'Modified' 
+            # has to update the old dataset in database to support new feature like 
+            # on process_state
+            toolkit.get_action('package_update')(data_dict=pkg_dict)
         return pkg_dict
 
     def before_search(self, search_params):
