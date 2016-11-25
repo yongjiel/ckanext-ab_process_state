@@ -58,25 +58,6 @@ class ProcessStatePlugin(plugins.SingletonPlugin):
         if package_last_process_state:
             pkg_dict['last_process_state'] = package_last_process_state.process_state
 
-        # set up contributors
-        if pkg_dict.get('creator_user_id'):
-            pkg_dict['creator_user_name'] = toolkit.get_action("user_show")(
-                                              data_dict={"id": pkg_dict['creator_user_id']}
-                                            )['name']
-        else:
-            pkg_dict['creator_user_name'] = curr_user_name
-
-        try:
-            pkg_dict['maintainers']
-        except KeyError, e :
-            pkg_dict['maintainers'] = []
-            if curr_user_name != pkg_dict['creator_user_name']:
-                pkg_dict['maintainers'].append(curr_user_name)
-        else:
-            if not curr_user_name in pkg_dict['maintainers'] and \
-                  curr_user_name != pkg_dict['creator_user_name']:
-                pkg_dict['maintainers'].append(curr_user_name)  
-
         #set up the process_state field for old dataset with no process_state
         if not pkg_dict.get("process_state"):
             if not pkg_dict.get('private'): # public
