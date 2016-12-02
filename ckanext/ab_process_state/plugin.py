@@ -59,24 +59,24 @@ class ProcessStatePlugin(plugins.SingletonPlugin):
             pkg_dict['last_process_state'] = package_last_process_state.process_state
 
         #set up the process_state field for old dataset with no process_state
-        if not pkg_dict.get("process_state"):
+        ps_exist = self._check_extras(pkg_dict)
+
+        if not pkg_dict.get("process_state") and not ps_exist:
             if not pkg_dict.get('private'): # public
                 pkg_dict['process_state'] = 'Approved'
                 pkg_dict['last_process_state'] = 'Approved'
-            """
-            Do not use this part. add_package_process_state function 
-            will call session.commit() and return diff pkg_dict with
-            no process_state field within new dataset, instead it contains 
-            that field in extras. the following part will change the 
-            value of new dataset values. 
-            """
-            """
             else:
                 pkg_dict['process_state'] = 'Modified'
                 pkg_dict['last_process_state'] = 'Modified'
-            """
-        
-
+    
+    
+    def _check_extras(self, pkg_dict):
+        ps_exist = False
+        if pkg_dict.get('extras'):
+            for dict in pkg_dict.get('extras'):
+                if dict.get('key') and dict.get('key') == 'process_state':
+                   ps_exist = True
+        return ps_exist    
 
                     
     def _update_extra(self, context, pkg_dict):
@@ -133,8 +133,9 @@ class ProcessStatePlugin(plugins.SingletonPlugin):
         if not pkg_dict.get('reason'):
             pkg_dict['reason'] = 'NA'
         #handle old data with no process_state field
-        
-        if not pkg_dict.get('process_state'):
+        ps_exist = self._check_extras(pkg_dict)
+
+        if not pkg_dict.get('process_state') and not ps_exist:
             if not pkg_dict.get('private'):
                 pkg_dict['process_state'] = 'Approved'
             else:

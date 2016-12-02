@@ -10,7 +10,7 @@
 ckan.module('actions', function ($, _) {
   return {
     initialize: function () {
-
+      
       $.proxyAll(this, /_on/);
 
       // Add an event handler to the button, when the user clicks the button

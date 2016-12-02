@@ -32,6 +32,8 @@ def is_admin(user, org):
 def current_user_name():
     if toolkit.c.userobj:
 	    return toolkit.c.userobj.name
+    else:
+        return None
 
 
 def is_authorized_member(user, org, process_state):
